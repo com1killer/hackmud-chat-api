@@ -18,7 +18,7 @@ Converts your chat pass to a chat token.
 ## Usage example
 
 ```js
-var HackmudChatAPI = require("hackmud-chat-api");
+var HackmudChatAPI = require("@com1killer/hackmud-chat-api");
 var chat = new HackmudChatAPI("YOUR_CHAT_TOKEN_OR_CHAT_PASS");
 console.log(chat.token);
 
