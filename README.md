@@ -4,9 +4,9 @@ A client for the Hackmud Chat API.
 [Additional docs for the chat API](https://www.hackmud.com/forums/general_discussion/chat_api_documentation)
 
 ## Installation
-`npm i -s hackmud-chat-api` for module use
+`npm i -s @com1killer/hackmud-chat-api` for module use
 
-`npm i -g hackmud-chat-api` for CLI use
+`npm i -g @com1killer/hackmud-chat-api` for CLI use
 
 ## CLI Usage
 
