@@ -52,6 +52,13 @@ class HackmudChatAPI {
         error: [],
         accountSync: []
     }
+
+    /**
+     * FOR INTERNAL USE ONLY.
+     * Used to store last poll's IDs to avoid doublestepping.
+     * @private
+     */
+    idstore = []
     //#endregion
 
     //#region Requests
@@ -270,7 +277,7 @@ class HackmudChatAPI {
      */
     async _poll() {
         //console.log(this.users);
-        let chats = (await this._chats(Object.keys(this.users), undefined, this.lastPoll)).chats; // Poll chats
+        let chats = (await this._chats(Object.keys(this.users), undefined, this.lastPoll - 1000)).chats; // Poll chats
         //console.log(JSON.stringify(chats));
 
         // Assign each chat a to_user value
@@ -282,11 +289,14 @@ class HackmudChatAPI {
             })
         });
 
-        // Concat all chats into one array
-        chats = Object.values(chats).reduce((a,x) => a.concat(x), []);
+        chats = Object.values(chats).reduce((a,x) => a.concat(x), []); // Flatten chats
+        chats = chats.filter(x => !this.idstore.includes(x.id)); // Filter out duplicate chats
 
         // Send out poll event
         this._send_event("poll", chats);
+
+        // Update IDStore
+        this.idstore = chats.map(x => x.id);
         
         // Update last poll timestamp
         this.lastPoll = Date.now();

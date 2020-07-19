@@ -1,6 +1,6 @@
 {
   "name": "@com1killer/hackmud-chat-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A client for the Hackmud Chat API.",
   "main": "index.js",
   "repository": {
