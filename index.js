@@ -276,9 +276,8 @@ class HackmudChatAPI {
      * Poll chat messages from server.
      */
     async _poll() {
-        //console.log(this.users);
-        let chats = (await this._chats(Object.keys(this.users), undefined, this.lastPoll - 1000)).chats; // Poll chats
-        //console.log(JSON.stringify(chats));
+        let fixedTime = Math.max(this.lastPoll - 1000, Date.now() - (5*60*1000)); // something something about time windows. thanks dtr for the fix.
+        let chats = (await this._chats(Object.keys(this.users), undefined, fixedTime)).chats; // Poll chats
 
         // Assign each chat a to_user value
         Object.keys(chats).forEach(username => {
